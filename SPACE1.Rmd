@@ -1,11 +1,28 @@
+---
+title: "Empirical Evaluation of Developer Productivity Enhancement with Microsoft Copilot Using the SPACE Framework"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+# Team 10: Manoj, Yashwanth, Sravanthika
+
+```{r}
 library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
 
 # Load the data
-data <- read_csv("SUS.csv")
+data <- read_csv("SUS.csv", show_col_types = FALSE)
 
+```
+
+
+
+```{r}
 # Rename the participant column and the question columns
 colnames(data)[1] <- "Participant"
 colnames(data)[-1] <- paste("Q", 1:10, sep="")
@@ -23,6 +40,12 @@ response_to_score <- function(response) {
 
 # Apply the function across the response columns
 data[2:11] <- lapply(data[2:11], function(column) sapply(column, response_to_score))
+print(data)
+
+```
+
+
+```{r}
 
 # Adjust scores for even and odd numbered questions
 for (i in 1:10) {
@@ -89,8 +112,12 @@ data <- data %>%
     LTR = 1.33 + (0.08 * SUS_Score)
   )
 
+head(data)
+```
 
 
+
+```{r}
 
 
 
@@ -102,51 +129,11 @@ data_session2 <- data %>% filter(Session == "2")
 # Now let's bind the rows of session 1 and 2 together for the plotting
 sus_combined <- bind_rows(data_session1, data_session2)
 
-# Function to plot data for a session
-plot_session_data <- function(df, session_number) {
-  ggplot(df, aes(x = SUS_Score)) +
-    geom_histogram(bins = 10, fill = "blue", color = "black", alpha = 0.7) +
-    labs(title = paste("Histogram of SUS Scores for Session", session_number),
-         x = "SUS Score", y = "Count") +
-    theme_minimal()
-}
-
-# Plot data for each session
-plot1 <- plot_session_data(data_session1, 1)
-plot2 <- plot_session_data(data_session2, 2)
-
-# Display the plots
-print(plot1)
-print(plot2)
+```
 
 
+```{r}
 
-
-library(readr)
-
-# Assuming sumi_session1 and sumi_session2 are already prepared and include all necessary statistics
-
-# Save SUMI session 1 data to a CSV file
-write_csv(data_session1, "SUS_Session1.csv")
-
-# Save SUMI session 2 data to a CSV file
-write_csv(data_session2, "SUS_Session2.csv")
-
-
-
-
-
-library(ggplot2)
-library(dplyr)
-
-# Assuming sus_session1 and sus_session2 are already prepared and include SUS scores for each session
-
-# First, let's add a 'Session' column to each dataframe
-sus_session1 <- data_session1 %>% mutate(Session = "Session 1")
-sus_session2 <- data_session2 %>% mutate(Session = "Session 2")
-
-# Now let's bind the rows of session 1 and 2 together for the plotting
-sus_combined <- bind_rows(sus_session1, sus_session2)
 
 # Boxplot for SUS scores
 ggplot(sus_combined, aes(x = Session, y = SUS_Score, fill = Session)) +
@@ -158,30 +145,6 @@ ggplot(sus_combined, aes(x = Session, y = SUS_Score, fill = Session)) +
 
 # Display the plot
 print(sus_combined)
-
-ggplot(sus_combined, aes(x = SUS_Score)) +
-  geom_histogram(bins = 10, fill = "skyblue", color = "black") +
-  labs(title = "Histogram of SUS Scores", x = "SUS Score", y = "Count") +
-  theme_minimal()
-
-
-ggplot(sus_combined, aes(x = as.factor(Session), y = SUS_Score, fill = as.factor(Session))) +
-  geom_boxplot() +
-  labs(title = "Boxplot of SUS Scores by Session", x = "Session", y = "SUS Score") +
-  theme_minimal()
-
-ggplot(sus_combined, aes(x = SUS_Score, y = LTR)) +
-  geom_point(aes(color = as.factor(Session))) +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(title = "Scatter Plot of SUS Score vs. LTR", x = "SUS Score", y = "LTR") +
-  theme_minimal()
-
-ggplot(sus_combined, aes(x = as.numeric(Session), y = SUS_Score, group = Base_Participant)) +
-  geom_line(aes(color = as.factor(Base_Participant))) +
-  geom_point(size = 2, aes(color = as.factor(Base_Participant))) +
-  labs(title = "Line Plot of SUS Scores Over Sessions", x = "Session", y = "SUS Score") +
-  theme_minimal() +
-  theme(legend.position = "none")
 
 library(dplyr)
 library(tidyr)
@@ -222,45 +185,14 @@ print(descriptive_stats)
 
 
 
-ggplot(sus_combined, aes(x = SUS_Score)) + 
-  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
-  labs(title = "Histogram of SUS Scores", x = "SUS Score", y = "Count")
 
 
-
-ggplot(sus_combined, aes(x = SUS_Score, y = LTR, color = as.factor(Session))) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(title = "Scatter Plot of SUS Scores vs. LTR by Session",
-       x = "SUS Score", y = "LTR",
-       color = "Session") +
-  theme_minimal()
-
-
-sus_combined %>%
-  group_by(Session) %>%
-  summarise(Mean_SUS_Score = mean(SUS_Score, na.rm = TRUE)) %>%
-  ggplot(aes(x = as.factor(Session), y = Mean_SUS_Score, fill = as.factor(Session))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Mean SUS Scores by Session",
-       x = "Session", y = "Mean SUS Score",
-       fill = "Session") +
-  theme_minimal()
 
 
 average_sus <- sus_combined %>%
   group_by(Session) %>%
   summarise(Average_SUS = mean(SUS_Score))
 
-ggplot(average_sus, aes(x = as.factor(Session), y = Average_SUS, group = 1)) +
-  geom_line() +
-  geom_point(size = 4) +
-  labs(title = "Trend of Average SUS Scores Across Sessions",
-       x = "Session", y = "Average SUS Score") +
-  theme_minimal()
-
-
-# Assuming you already have a dataframe 'descriptive_stats' with the stats calculated
 
 # Reshape the data for plotting
 descriptive_stats_long <- descriptive_stats %>%
@@ -355,119 +287,15 @@ plot <- ggplot(sus_combined, aes(x = SUS_Score)) +
 # Display the plot
 print(plot)
 
+```
 
 
+```{r}
+```
 
 
+```{r}
+```
 
 
-
-
-
-
-
-
-
-
-
-
-library(ggplot2)
-library(dplyr)
-
-# Assuming you have two dataframes, sus_session1 and sus_session2, which contain the SUS scores
-# and a participant identifier. We'll join them by this identifier.
-
-# Combine the data from both sessions
-sus_combined <- full_join(sus_session1, sus_session2, by = "Participant", suffix = c("_Session1", "_Session2")) %>%
-  # Pivot longer for ggplot
-  pivot_longer(cols = starts_with("SUS_Score"), names_to = "Session", values_to = "SUS_Score") %>%
-  # Transform the session column to a factor for plotting
-  mutate(Session = factor(Session, levels = c("SUS_Score_Session1", "SUS_Score_Session2")))
-
-# Plot with individual points and lines for each participant
-ggplot(sus_combined, aes(x = Session, y = SUS_Score, group = Participant)) +
-  geom_line(aes(group = Participant), alpha = 0.3) +  # Draw lines with low opacity
-  geom_point(aes(color = Participant)) +  # Use color to distinguish participants
-  labs(title = "SUS Scores Across Sessions",
-       x = "Session",
-       y = "SUS Score",
-       color = "Participant") +
-  theme_minimal() +
-  theme(legend.position = "none")  # Hide the legend to avoid clutter
-
-# Print the plot
-ggsave("SUS_Scores_Line_Plot.png", width = 10, height = 6, dpi = 300)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(readr)
-library(tibble)
-library(stats)
-
-# Assuming data_session1 and data_session2 have been processed as per previous steps...
-
-# Step 1: Join the session data
-# Ensure that the data frames are properly sorted by Base_Participant before joining.
-comparison_data <- inner_join(
-  data_session1 %>% select(Base_Participant, SUS_Score, Grade, Acceptability, Learnability, Usability, LTR),
-  data_session2 %>% select(Base_Participant, SUS_Score, Grade, Acceptability, Learnability, Usability, LTR),
-  by = "Base_Participant",
-  suffix = c("_session1", "_session2")
-)
-
-# Step 2: Conduct paired comparison tests
-# Use a paired t-test if the data is parametric
-paired_t_test_result <- t.test(comparison_data$SUS_Score_session1, comparison_data$SUS_Score_session2, paired = TRUE)
-print(paired_t_test_result)
-
-# Use Wilcoxon signed-rank test for non-parametric data
-wilcoxon_test_result <- wilcox.test(comparison_data$SUS_Score_session1, comparison_data$SUS_Score_session2, paired = TRUE)
-print(wilcoxon_test_result)
-
-# Step 3: Perform correlation analysis
-# Pearson correlation for normally distributed data
-pearson_correlation <- cor.test(comparison_data$SUS_Score_session1, comparison_data$SUS_Score_session2, method = "pearson")
-print(pearson_correlation)
-
-# Spearman's rank correlation for non-normally distributed data
-spearman_correlation <- cor.test(comparison_data$SUS_Score_session1, comparison_data$SUS_Score_session2, method = "spearman")
-print(spearman_correlation)
-
-# Additional Analysis: Visualizing the results
-# Scatter plot to visualize the correlation between sessions
-ggplot(comparison_data, aes(x = SUS_Score_session1, y = SUS_Score_session2)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Correlation of SUS Scores Between Two Sessions",
-       x = "Session 1 SUS Score",
-       y = "Session 2 SUS Score") +
-  theme_minimal()
-
-
-
-
-
-
-
-
+# Thank You
