@@ -1,0 +1,33 @@
+﻿Participant ID,"Microsoft Copilot responds too slowly to my inputs.
+","It takes too long to learn Microsoft Copilot's functions.
+","Tasks can be performed in a straightforward manner using Microsoft Copilot.
+","Using Microsoft Copilot is frustrating.
+","Microsoft Copilot has helped me overcome any problems I have had in using it.
+
+","The speed of Microsoft Copilot is fast enough.
+
+","Microsoft Copilot allows the user to be economical with keystrokes.
+
+","It is easy to make Microsoft Copilot do exactly what you want.
+
+","Microsoft Copilot simplifies the addition of new lines of code.
+","I find that using Microsoft Copilot speeds up my coding process.
+","Microsoft Copilot integrates well with my existing coding practices.
+","The use of Microsoft Copilot reduces the complexity of coding tasks.
+","I can maintain a high level of coding productivity when using Microsoft Copilot.
+","Microsoft Copilot helps me manage large blocks of code more efficiently.
+","Coding with Microsoft Copilot feels natural and fluid.
+","The assistance provided by Microsoft Copilot is relevant to the tasks I perform.
+","Microsoft Copilot significantly reduces the effort required to write and debug code.
+","I rely on Microsoft Copilot for completing complex coding tasks efficiently.
+","Based on your experience so far, how likely are you to continue using Microsoft Copilot after this experiment?
+","Would you recommend Microsoft Copilot to other developers?
+"
+5,Neutral,Neutral,Agree,Agree,Agree,Neutral,Agree,Agree,Agree,Agree,Agree,Agree,Neutral,Neutral,Agree,Agree,Agree,Agree,Neither likely nor unlikely,Yes
+5(2),Disagree,Neutral,Strongly agree,Disagree,Agree,Agree,Agree,Strongly agree,Neutral,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Somewhat likely,Yes
+6,Disagree,Neutral,Agree,Neutral,Agree,Agree,Agree,Agree,Agree,Agree,Strongly Agree,Agree,Agree,Agree,Agree,Neutral,Agree,Agree,Somewhat likely,Yes
+6(2),Neutral,Agree,Neutral,Agree,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Disagree,Neutral,Neutral,Neutral,Disagree,Neither likely nor unlikely,Neither likely nor unlikely
+7,Agree,Strongly agree,Disagree,Agree,Disagree,Disagree,Neutral,Disagree,Disagree,Disagree,Disagree,Disagree,Disagree,Neutral,Disagree,Disagree,Disagree,Disagree,Very unlikely,No
+7(2),Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Agree,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Neutral,Somewhat unlikely,Maybe
+8,Disagree,Disagree,Strongly agree,Disagree,Strongly agree,Strongly agree,Strongly agree,Strongly agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Very likely,Yes
+8(2),Strongly disagree,Strongly disagree,Strongly agree,Strongly disagree,Strongly agree,Strongly agree,Strongly agree,Strongly agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Strongly Agree,Very likely,Yes
